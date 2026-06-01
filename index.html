@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix_clone</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <a class="nav-logo" href="#">STREAMFLIX</a>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">TV Shows</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">New & Popular</a></li>
+        <li><a href="#">My List</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="nav-search" onclick="toggleSearch()" title="Search">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            width="20"
+            height="20"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+        </button>
+        <div class="avatar">JS</div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-poster">
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.15;
+          "
+        >
+          <svg
+            viewBox="0 0 200 200"
+            width="400"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="100" cy="100" r="80" stroke="white" stroke-width="1" />
+            <circle cx="100" cy="100" r="55" stroke="white" stroke-width="1" />
+            <circle cx="100" cy="100" r="30" stroke="white" stroke-width="1" />
+            <line
+              x1="20"
+              y1="100"
+              x2="180"
+              y2="100"
+              stroke="white"
+              stroke-width="1"
+            />
+            <line
+              x1="100"
+              y1="20"
+              x2="100"
+              y2="180"
+              stroke="white"
+              stroke-width="1"
+            />
+            <ellipse
+              cx="100"
+              cy="100"
+              rx="80"
+              ry="30"
+              stroke="white"
+              stroke-width="1"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="hero-bg"></div>
+      <div style="position: relative; z-index: 2; max-width: 560px">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            />
+          </svg>
+          #1 in Trending
+        </div>
+        <h1 class="hero-title">Dark<span> Horizon</span><br />Chronicles</h1>
+        <div class="hero-meta">
+          <span class="match">97% Match</span>
+          <span class="year">2024</span>
+          <span class="rating">TV-MA</span>
+          <span class="dur">3 Seasons</span>
+        </div>
+        <p class="hero-desc">
+          When a mysterious signal reaches Earth from the edge of the known
+          universe, a brilliant astrophysicist must race against time — and
+          against shadowy forces within her own government — to decode its
+          meaning before it's too late.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-play" onclick="openModal()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Play
+          </button>
+          <button class="btn-more" onclick="openModal()">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4M12 16h.01" />
+            </svg>
+            More Info
+          </button>
+        </div>
+      </div>
+      <div class="hero-bottom-fade"></div>
+    </section>
+
+    <!-- GENRE PILLS -->
+    <div class="genres-strip">
+      <button class="genre-pill active" onclick="setGenre(this)">All</button>
+      <button class="genre-pill" onclick="setGenre(this)">Sci-Fi</button>
+      <button class="genre-pill" onclick="setGenre(this)">Action</button>
+      <button class="genre-pill" onclick="setGenre(this)">Drama</button>
+      <button class="genre-pill" onclick="setGenre(this)">Horror</button>
+      <button class="genre-pill" onclick="setGenre(this)">Comedy</button>
+      <button class="genre-pill" onclick="setGenre(this)">Thriller</button>
+      <button class="genre-pill" onclick="setGenre(this)">Documentary</button>
+      <button class="genre-pill" onclick="setGenre(this)">Romance</button>
+      <button class="genre-pill" onclick="setGenre(this)">Animation</button>
+    </div>
+
+    <!-- ROWS -->
+    <main class="rows" style="margin-top: 2rem">
+      <!-- Continue Watching -->
+      <section class="row">
+        <div class="row-header">
+          <h2 class="row-title">Continue Watching</h2>
+          <span class="row-explore">Manage ›</span>
+        </div>
+        <div class="cards" id="continue"></div>
+      </section>
+
+      <!-- Trending -->
+      <section class="row">
+        <div class="row-header">
+          <h2 class="row-title">Trending Now</h2>
+          <span class="row-explore">Explore All ›</span>
+        </div>
+        <div class="cards" id="trending"></div>
+      </section>
+
+      <!-- Top 10 -->
+      <section class="row">
+        <div class="row-header">
+          <h2 class="row-title">Top 10 in Your Country</h2>
+        </div>
+        <div class="cards" id="top10"></div>
+      </section>
+
+      <!-- New Releases -->
+      <section class="row">
+        <div class="row-header">
+          <h2 class="row-title">New Releases</h2>
+          <span class="row-explore">See All ›</span>
+        </div>
+        <div class="cards" id="newrel"></div>
+      </section>
+
+      <!-- Because you watched -->
+      <section class="row">
+        <div class="row-header">
+          <h2 class="row-title">
+            Because You Watched
+            <em style="font-style: normal; color: var(--text-muted)"
+              >Dark Horizon</em
+            >
+          </h2>
+        </div>
+        <div class="cards" id="because"></div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-links">
+        <a href="#">FAQ</a><a href="#">Help Center</a><a href="#">Account</a>
+        <a href="#">Media Center</a><a href="#">Investor Relations</a>
+        <a href="#">Jobs</a><a href="#">Ways to Watch</a
+        ><a href="#">Terms of Use</a> <a href="#">Privacy</a
+        ><a href="#">Cookie Preferences</a><a href="#">Corporate Information</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2024 Streamflix Clone — UI Practice Project</span>
+        <span>🇺🇸 English</span>
+      </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div
+      class="modal-bg"
+      id="modal"
+      onclick="if (event.target === this) closeModal();"
+    >
+      <div class="modal">
+        <div class="modal-thumb">
+          <div
+            style="
+              position: absolute;
+              inset: 0;
+              background: linear-gradient(135deg, #0f3460, #e94560);
+              opacity: 0.8;
+            "
+          ></div>
+          <div class="modal-thumb-overlay"></div>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+          <div
+            style="
+              position: absolute;
+              bottom: 1.5rem;
+              left: 1.5rem;
+              display: flex;
+              gap: 10px;
+            "
+          >
+            <button
+              class="btn-play"
+              style="padding: 10px 22px; font-size: 0.9rem"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="18"
+                height="18"
+              >
+                <path d="M8 5v14l11-7z" /></svg
+              >Play
+            </button>
+            <button
+              class="btn-more"
+              style="padding: 10px 18px; font-size: 0.9rem"
+            >
+              + My List
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <h2 class="modal-title">Dark Horizon Chronicles</h2>
+          <div class="modal-meta">
+            <span style="color: #46d369; font-weight: 500">97% Match</span>
+            <span>2024</span><span>3 Seasons</span
+            ><span style="border: 1px solid currentColor; padding: 0 4px"
+              >TV-MA</span
+            >
+            <span>HD</span>
+          </div>
+          <p class="modal-desc">
+            When a mysterious signal reaches Earth from the edge of the known
+            universe, a brilliant astrophysicist must race against time — and
+            against shadowy forces within her own government — to decode its
+            meaning before it's too late. A gripping sci-fi thriller that blends
+            hard science with deep character drama.
+          </p>
+          <div
+            style="font-size: 0.82rem; color: var(--text-muted); line-height: 2"
+          >
+            <div>
+              <span style="color: #777">Cast:</span> Elena Voss, Marcus Reyes,
+              Dr. Yuna Park
+            </div>
+            <div>
+              <span style="color: #777">Genres:</span> Sci-Fi, Thriller, Drama
+            </div>
+            <div>
+              <span style="color: #777">This show is:</span> Mind-bending,
+              Suspenseful, Thought-provoking
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+      <button
+        onclick="toggleSearch()"
+        style="
+          position: absolute;
+          top: 24px;
+          right: 4%;
+          background: none;
+          border: none;
+          color: var(--text);
+          font-size: 1.5rem;
+          cursor: pointer;
+        "
+      >
+        ✕
+      </button>
+      <div class="search-wrap">
+        <input
+          class="search-input"
+          id="searchInput"
+          placeholder="Search titles, people, genres"
+          oninput="doSearch(this.value)"
+          autofocus
+        />
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
